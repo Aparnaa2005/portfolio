@@ -27,8 +27,9 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Prepare deploy artifact
         run: |
+          rm -rf /tmp/pages-artifact
           mkdir -p /tmp/pages-artifact
-          rsync -av --delete --exclude='.*' ./ /tmp/pages-artifact/
+          rsync -av --exclude='.git/' --exclude='.github/' ./ /tmp/pages-artifact/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
