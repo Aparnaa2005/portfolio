@@ -25,10 +25,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Prepare deploy artifact
+        run: |
+          mkdir -p /tmp/pages-artifact
+          rsync -av --delete --exclude='.*' ./ /tmp/pages-artifact/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "/tmp/pages-artifact"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
